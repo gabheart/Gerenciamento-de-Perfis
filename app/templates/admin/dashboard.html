@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Gerenciamento de Perfis{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h1 class="mb-4">🔐 Painel de Administração</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Usuários</h5>
+                    <h2>{{ stats.total_users }}</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Usuários Ativos</h5>
+                    <h2>{{ stats.active_users }}</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Administradores</h5>
+                    <h2>{{ stats.admin_users }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Gerenciamento</h5>
+                    <hr>
+                    <a href="{{ url_for('admin.manage_users') }}" class="btn btn-primary me-2">Gerenciar Usuários</a>
+                    <button class="btn btn-warning" disabled>Criar Relatório</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

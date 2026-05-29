@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Meu Perfil - Gerenciamento de Perfis{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-8 mx-auto">
+            <h1 class="mb-4">Meu Perfil</h1>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h5>Informações Pessoais</h5>
+                        <hr>
+                        <p><strong>Usuário:</strong> {{ current_user.username }}</p>
+                        <p><strong>Email:</strong> {{ current_user.email }}</p>
+                        <p><strong>Nome Completo:</strong> {{ current_user.full_name or 'Não informado' }}</p>
+                        <p><strong>Papel:</strong> 
+                            {% if current_user.is_admin() %}
+                                <span class="badge bg-danger">Administrador</span>
+                            {% else %}
+                                <span class="badge bg-primary">Usuário</span>
+                            {% endif %}
+                        </p>
+                        <p><strong>Status:</strong> 
+                            {% if current_user.is_active %}
+                                <span class="badge bg-success">Ativo</span>
+                            {% else %}
+                                <span class="badge bg-danger">Inativo</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h5>Datas</h5>
+                        <hr>
+                        <p><strong>Membro desde:</strong> {{ current_user.created_at.strftime('%d/%m/%Y às %H:%M') }}</p>
+                        <p><strong>Última atualização:</strong> {{ current_user.updated_at.strftime('%d/%m/%Y às %H:%M') }}</p>
+                        <p><strong>Último acesso:</strong> 
+                            {% if current_user.last_login %}
+                                {{ current_user.last_login.strftime('%d/%m/%Y às %H:%M') }}
+                            {% else %}
+                                Primeiro acesso
+                            {% endif %}
+                        </p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Editar Perfil</button>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Alterar Senha</button>
+                        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar perfil -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Perfil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-info">Funcionalidade em desenvolvimento...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para alterar senha -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Alterar Senha</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-info">Funcionalidade em desenvolvimento...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

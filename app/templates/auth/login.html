@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Gerenciamento de Perfis{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Login</h2>
+                    
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-3">
+                            {{ form.username(id="username") }}
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.password(id="password") }}
+                            {% if form.password.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.password.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            {{ form.remember(id="remember") }}
+                            <label class="form-check-label" for="remember">
+                                Lembrar-me
+                            </label>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            {{ form.submit() }}
+                        </div>
+                    </form>
+                    
+                    <hr>
+                    <p class="text-center mb-0">
+                        Não tem uma conta? <a href="{{ url_for('auth.register') }}">Cadastre-se aqui</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

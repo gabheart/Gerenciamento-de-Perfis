@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Gerenciamento de Perfis{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h1 class="mb-4">Dashboard</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">📊 Informações da Conta</h5>
+                    <p class="card-text">
+                        <strong>Usuário:</strong> {{ current_user.username }}<br>
+                        <strong>Email:</strong> {{ current_user.email }}<br>
+                        <strong>Nome Completo:</strong> {{ current_user.full_name or 'Não informado' }}<br>
+                        <strong>Papel:</strong> 
+                        {% if current_user.is_admin() %}
+                            <span class="badge bg-danger">Administrador</span>
+                        {% else %}
+                            <span class="badge bg-primary">Usuário</span>
+                        {% endif %}<br>
+                        <strong>Status:</strong> 
+                        {% if current_user.is_active %}
+                            <span class="badge bg-success">Ativo</span>
+                        {% else %}
+                            <span class="badge bg-danger">Inativo</span>
+                        {% endif %}
+                    </p>
+                    <a href="{{ url_for('main.profile') }}" class="btn btn-primary">Editar Perfil</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🔐 Segurança</h5>
+                    <p class="card-text">
+                        <strong>Membro desde:</strong> {{ current_user.created_at.strftime('%d/%m/%Y') }}<br>
+                        <strong>Último acesso:</strong> 
+                        {% if current_user.last_login %}
+                            {{ current_user.last_login.strftime('%d/%m/%Y às %H:%M') }}
+                        {% else %}
+                            Primeiro acesso
+                        {% endif %}
+                    </p>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Alterar Senha</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para alterar senha -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Alterar Senha</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-info">Funcionalidade em desenvolvimento...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Gerenciamento de Perfis{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <h1 class="card-title mb-4">👋 Bem-vindo ao Gerenciamento de Perfis</h1>
+                    <p class="card-text lead mb-4">
+                        Um sistema seguro e eficiente para gerenciar perfis de usuários com autenticação de segurança.
+                    </p>
+                    
+                    {% if current_user.is_authenticated %}
+                        <p class="mb-4">Olá, <strong>{{ current_user.username }}</strong>!</p>
+                        <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary btn-lg me-2">Ir para Dashboard</a>
+                        <a href="{{ url_for('main.profile') }}" class="btn btn-secondary btn-lg">Ver Meu Perfil</a>
+                    {% else %}
+                        <div class="row mt-5">
+                            <div class="col-md-6">
+                                <h5>Novo aqui?</h5>
+                                <p>Crie sua conta agora e comece a usar nosso sistema.</p>
+                                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Cadastrar</a>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Já tem conta?</h5>
+                                <p>Faça login para acessar seu perfil.</p>
+                                <a href="{{ url_for('auth.login') }}" class="btn btn-secondary btn-lg">Login</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
